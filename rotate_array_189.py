@@ -1,24 +1,24 @@
 class Solution(object):
     def rotate(self, nums, k):
-        subarray1 = nums[0: len(nums)-k: 1]
-        subarray2 = nums[len(nums)-k::1]
+        k = k % len(nums)
 
-        def reverseArray(array):
-            start = 0
-            end = len(array)-1
+        def reverseArray(array, start, end):
+
             while start < end:
                 array[start], array[end] = array[end], array[start]
                 start += 1
                 end -= 1
             return array
 
-        newsub1 = reverseArray(subarray1)
-        newsub2 = reverseArray(subarray2)
-        backwardssolution = newsub1 + newsub2
-        solution = reverseArray(backwardssolution)
-
-        return solution
+        reverseArray(nums, 0, len(nums)-1)
+        reverseArray(nums, 0, k-1)
+        reverseArray(nums, k, len(nums)-1)
 
 
-test = Solution().rotate([1, 2, 3, 4, 5, 6, 7], 3)
-print(test)
+print(Solution().rotate([1, 2, 3, 4, 5, 6, 7], 3))
+
+
+# reversing in place was a challenge, need to reverse the array first before the parts maybe?
+
+# 4/21/22 Runtime: 192 ms, faster than 76.41% of Python online submissions for Rotate Array.
+# Memory Usage: 25 MB, less than 36.25% of Python online submissions for Rotate Array.
